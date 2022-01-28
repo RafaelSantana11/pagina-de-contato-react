@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Grid, TextField } from "@material-ui/core/";
+import styled from "styled-components";
+import { Grid, TextField, Container } from "@material-ui/core/";
 
 const Contatos = () => {
   const url = "http://localhost:5000/message";
@@ -67,97 +68,103 @@ const Contatos = () => {
   };
 
   return (
-    <>
-      <div className="card mt-2 pb-3 px-3">
-        <Grid container direction="row">
-          <TextField
-            id="name"
-            label="E-mail"
-            value={author}
-            onChange={(event) => {
-              setAuthor(event.target.value);
-            }}
-            fullWidth
-          />
-          <TextField
-            id="message"
-            label="Mensagem"
-            value={content}
-            onChange={(event) => {
-              setContent(event.target.value);
-            }}
-            fullWidth
-          />
-        </Grid>
+    <Wrapper>
+      <Container maxWidth="xl">
+        <div className="card pt-2 pb-3 px-3">
+          <Grid container direction="row">
+            <TextField
+              id="name"
+              label="E-mail"
+              value={author}
+              onChange={(event) => {
+                setAuthor(event.target.value);
+              }}
+              fullWidth
+            />
+            <TextField
+              id="message"
+              label="Mensagem"
+              value={content}
+              onChange={(event) => {
+                setContent(event.target.value);
+              }}
+              fullWidth
+            />
+          </Grid>
 
-        {validator && (
-          <div
-            className="alert alert-warning alert-dismissible fade show mt-2"
-            role="alert"
-          >
-            <strong>Por favor preencha todos os campos!</strong>
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="alert"
-              aria-label="Close"
-            ></button>
-          </div>
-        )}
-
-        {success && (
-          <div
-            className="alert alert-success alert-dismissible fade show mt-2"
-            role="alert"
-          >
-            <strong>Mensagem foi enviada</strong>
-          </div>
-        )}
-
-        {deleted && (
-          <div
-            className="alert alert-success alert-dismissible fade show mt-2"
-            role="alert"
-          >
-            <strong>Mensagem deletada com sucesso</strong>
-          </div>
-        )}
-
-        <button
-          type="button"
-          onClick={() => {
-            sendMessage();
-          }}
-          className="btn btn-success mt-2"
-        >
-          Enviar
-        </button>
-      </div>
-
-      {message.map((content) => {
-        return (
-          <div className="card mt-2" key={content.id}>
-            <div className="card-body">
-              <h5 className="card-title">{content.email}</h5>
-              <p className="card-text">{content.message}</p>
-              <p className="card-text">
-                <small className="text-muted">{content.created_at}</small>
-              </p>
+          {validator && (
+            <div
+              className="alert alert-warning alert-dismissible fade show mt-2"
+              role="alert"
+            >
+              <strong>Por favor preencha todos os campos!</strong>
               <button
                 type="button"
-                className="btn btn-danger"
-                onClick={() => {
-                  deleteMessage(content.id);
-                }}
-              >
-                Excluir
-              </button>
+                className="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
             </div>
-          </div>
-        );
-      })}
-    </>
+          )}
+
+          {success && (
+            <div
+              className="alert alert-success alert-dismissible fade show mt-2"
+              role="alert"
+            >
+              <strong>Mensagem foi enviada</strong>
+            </div>
+          )}
+
+          {deleted && (
+            <div
+              className="alert alert-success alert-dismissible fade show mt-2"
+              role="alert"
+            >
+              <strong>Mensagem deletada com sucesso</strong>
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={() => {
+              sendMessage();
+            }}
+            className="btn btn-success mt-2"
+          >
+            Enviar
+          </button>
+        </div>
+
+        {message.map((content) => {
+          return (
+            <div className="card mt-2" key={content.id}>
+              <div className="card-body">
+                <h5 className="card-title">{content.email}</h5>
+                <p className="card-text">{content.message}</p>
+                <p className="card-text">
+                  <small className="text-muted">{content.created_at}</small>
+                </p>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => {
+                    deleteMessage(content.id);
+                  }}
+                >
+                  Excluir
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </Container>
+    </Wrapper>
   );
 };
 
 export default Contatos;
+
+const Wrapper = styled.div`
+  background-color: rgb(30, 25, 44)
+`;

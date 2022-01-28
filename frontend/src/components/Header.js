@@ -5,7 +5,7 @@ const Header = () => {
     return(
         <Grid container direction="row" justify="space-between" alignItems="center" xs={12}>
             <Typography variant='h3'>
-                Dio Contato
+                Dio - Contato
             </Typography>          
         </Grid>
     )
